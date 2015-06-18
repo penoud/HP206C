@@ -1,6 +1,6 @@
 import PyBCM2835
 
-class HPC206:
+class HP206C:
 	COMMAND_ADC_CONV_PT_4096 = 0x40
 	COMMAND_ADC_CONV_T_4096 = 0x42
 	COMMAND_ADC_CONV_PT_2048 = 0x44
@@ -29,7 +29,7 @@ class HPC206:
 		if not (PyBCM2835.init()):
 			raise EnvironmentError("Cannot initialize BCM2835.")
 		PyBCM2835.i2c_begin()
-		PyBCM2835.i2c_setSlaveAddress(0xEC)
+		PyBCM2835.i2c_setSlaveAddress(0x76)
 
 		PyBCM2835.delay(100)
 	def setConversionRate(self,value):
@@ -63,11 +63,15 @@ class HPC206:
 		PyBCM2835.i2c_write(chr(self.COMMAND_READ_P),1)	
 		data=""+chr(0)+chr(0)+chr(0)
 		PyBCM2835.i2c_read(data,3)
+		#print "pressure raw = " + str(ord(data[0])) + ", " + str(ord(data[1])) + ", " + str(ord(data[2]))
+		data = ((ord(data[0])<<16)|(ord(data[1])<<8)|ord(data[2]))/100.0
 		return data
 	def readTemp(self):
 		PyBCM2835.i2c_write(chr(self.COMMAND_READ_T),1)	
 		data=""+chr(0)+chr(0)+chr(0)
 		PyBCM2835.i2c_read(data,3)
+		#print "temp raw = " + str(ord(data[0])) + ", " + str(ord(data[1])) + ", " + str(ord(data[2]))
+		data = ((ord(data[0])<<16)|(ord(data[1])<<8)|ord(data[2]))/100.0
 		return data
 	def readReg(self,register):
 		PyBCM2835.i2c_write(chr(self.COMMAND_READ_REG | (register & 0x3F)),1)		
