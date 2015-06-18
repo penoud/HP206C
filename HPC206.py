@@ -34,26 +34,26 @@ class HPC206:
 		PyBCM2835.delay(100)
 	def setConversionRate(self,value):
 		if((value==4096) or (value==2048) or (value==1024) or (value==512) or (value==256) or (value==128)):
-			CONVERSION_RATE=value
+			self.CONVERSION_RATE=value
 		else:
 			print "Error: invalid conversion rate, valid are (4096,2048,1024,512,256,128)"
 	def startPTConversion(self):
-		if(CONVERSION_RATE==4096):
+		if(self.CONVERSION_RATE==4096):
 			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_PT_4096),1)			
 			PyBCM2835.delay(150)
-		else if(CONVERSION_RATE==2048): 
+		elif(self.CONVERSION_RATE==2048): 
 			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_PT_2048),1)			
 			PyBCM2835.delay(75)
-		else if(CONVERSION_RATE==1024): 
+		elif(self.CONVERSION_RATE==1024): 
 			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_PT_1024),1)			
 			PyBCM2835.delay(50)
-		else if(CONVERSION_RATE==512): 
+		elif(CONVERSION_RATE==512): 
 			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_PT_512),1)			
 			PyBCM2835.delay(25)
-		else if(CONVERSION_RATE==256): 
+		elif(self.CONVERSION_RATE==256): 
 			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_PT_256),1)			
 			PyBCM2835.delay(16)
-		else if(CONVERSION_RATE==128): 
+		elif(self.CONVERSION_RATE==128): 
 			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_PT_128),1)			
 			PyBCM2835.delay(10)
 		else:
