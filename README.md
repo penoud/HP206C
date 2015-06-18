@@ -1,2 +1,2 @@
-# HPC206
-Python class for handle the pressure sensor HPC206 on the raspberry py using PyBCM2835 library
+# HP206C
+Python class for handle the pressure sensor HP206C on the raspberry py using PyBCM2835 library
