@@ -49,16 +49,39 @@ class HP206C:
 			PyBCM2835.delay(50)
 		elif(CONVERSION_RATE==512): 
 			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_PT_512),1)			
-			PyBCM2835.delay(25)
+			PyBCM2835.delay(25)			
 		elif(self.CONVERSION_RATE==256): 
 			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_PT_256),1)			
 			PyBCM2835.delay(16)
 		elif(self.CONVERSION_RATE==128): 
 			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_PT_128),1)			
+			PyBCM2835.delay(10)			
+		else:
+			print "Error, unknown conversion rate"
+			return 0
+	def startTConversion(self):
+		if(self.CONVERSION_RATE==4096):
+			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_T_4096),1)
+			PyBCM2835.delay(150)
+		elif(self.CONVERSION_RATE==2048): 
+			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_T_2048),1)			
+			PyBCM2835.delay(75)
+		elif(self.CONVERSION_RATE==1024): 
+			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_T_1024),1)			
+			PyBCM2835.delay(50)
+		elif(CONVERSION_RATE==512): 
+			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_T_512),1)			
+			PyBCM2835.delay(25)
+		elif(self.CONVERSION_RATE==256): 
+			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_T_256),1)			
+			PyBCM2835.delay(16)
+		elif(self.CONVERSION_RATE==128): 
+			PyBCM2835.i2c_write(chr(self.COMMAND_ADC_CONV_T_128),1)			
 			PyBCM2835.delay(10)
 		else:
 			print "Error, unknown conversion rate"
 			return 0
+								
 	def readPressure(self):
 		PyBCM2835.i2c_write(chr(self.COMMAND_READ_P),1)	
 		data=""+chr(0)+chr(0)+chr(0)
